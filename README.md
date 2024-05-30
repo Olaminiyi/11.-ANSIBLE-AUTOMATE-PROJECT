@@ -36,16 +36,20 @@ sudo apt install ansible
 
 ### Jenkins configuration
 
-4. Configure Jenkins build job to save your repository content every time you change it – this will solidify your Jenkins configuration skills acquired in Project 9.
-- Create a new Freestyle project ansible in Jenkins and point it to your ‘ansible-config-mgt’ repository.
-- Configure Webhook in GitHub and set webhook to trigger ansible build.
-- Configure a Post-build job to save all (**) files, like you did it in Project 9.
+Configure Jenkins build job to save your repository content every time you change it – this will solidify your Jenkins configuration skills acquired in [Project 9](https://github.com/Olaminiyi/Project-9).
+
+Create a new Freestyle project ansible in Jenkins and point it to your `ansible-config-mgt` repository.
+Configure Webhook in GitHub and set webhook to trigger ansible build.
+Configure a Post-build job to save all (**) files, like you did it in [Project 9](https://github.com/Olaminiyi/Project-9).
+
 ![Alt text](images/11.4.png)
 ![Alt text](images/11.5.png)
 ![Alt text](images/11.6.png)
 
-5. Test your setup by making some change in README.MD file in master branch and make sure that builds starts automatically and Jenkins saves the files (build artifacts) in following folder
+Test your setup by making some change in `README.MD` file in master branch and make sure that builds starts automatically and Jenkins saves the files (build artifacts) in following folder
+
 ls /var/lib/jenkins/jobs/ansible/builds/<build_number>/archive/
+
 ![Alt text](images/11.7.png)
 
 6. allocate an Elastic IP to your Jenkins-Ansible server 
