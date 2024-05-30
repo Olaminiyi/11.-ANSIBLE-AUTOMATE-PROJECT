@@ -52,83 +52,118 @@ ls /var/lib/jenkins/jobs/ansible/builds/<build_number>/archive/
 
 ![Alt text](images/11.7.png)
 
-6. allocate an Elastic IP to your Jenkins-Ansible server 
+**Allocate an Elastic IP to your Jenkins-Ansible server** 
+
 ![Alt text](images/11.8.png)
 
-7. Clone down your ansible-config-mgt repo to your Jenkins-Ansible instance
-   git clone <ansible-config-mgt repo link>
+Clone down your ansible-config-mgt repo to your Jenkins-Ansible instance
+```
+git clone https://github.com/Olaminiyi/Ansible-Config.git
+```
+
 ![Alt text](images/11.9.png)
 
-8. In your ansible-config-mgt GitHub repository, create a new branch that will be used for development of a new feature.
+In your ansible-config-mgt GitHub repository, create a new branch that will be used for development of a new feature.
+
 ![Alt text](images/11.10.png)
 
-9. Checkout the newly created feature branch to your local machine and start building your code and directory structure
-    - Create a directory and name it playbooks – it will be used to store all your playbook files.
-    - Create a directory and name it inventory – it will be used to keep your hosts organised.
-    - Within the playbooks folder, create your first playbook, and name it common.yml
-    - Within the inventory folder, create an inventory file (.yml) for each environment (Development, Staging Testing and Production) dev, staging, uat, and prod respectively.
+Checkout the newly created feature branch to your local machine and start building your code and directory structure
+
+- Create a directory and name it playbooks – it will be used to store all your playbook files.
+- Create a directory and name it inventory – it will be used to keep your hosts organised.
+- Within the playbooks folder, create your first playbook, and name it common.yml
+- Within the inventory folder, create an inventory file (.yml) for each environment (Development, Staging Testing and Production) dev, staging, uat, and prod respectively.
 
 ![Alt text](images/11.11.png)
-![](images/11.12.png)
+![Alt text](images/11.12.png)
 
-10. Note: Ansible uses TCP port 22 by default, which means it needs to ssh into target servers from Jenkins-Ansible host – for this you can implement the concept of ssh-agent. Now you need to import your key into ssh-agent:
-exit from your ec2 user or ubuntu user(instance) to your local user i.e local directory that contains the pem key file
-    - eval `ssh-agent -s`
-    - ssh-add <path-to-private-key>(proj7_key.pem)
-    - Confirm the key has been added with the command below, you should see the name of your key
-    - ssh-add -l
-       ![Alt text](images/11.14.png) 
-    - then ssh into the ansible-jenkins instance with the public ip address directly from the local directory without using the normal amazon connection
-        - ssh -A ubuntu@<public ip address>
-        ![Alt text](images/11.13.png)
-    - persist the key on the server 
-        - ssh-add -l
-    - ssh into other instances from the ansible instance with there private keys
-        - ssh @ubuntu/ec2-user@<Private ip address>
-       ![Alt text](images/11.15.png) 
+> [!NOTE]
+> Ansible uses TCP port 22 by default, which means it needs to ssh into target servers from Jenkins-Ansible host – for this you can implement the concept of `ssh-agent`. Now you need to import your key into `ssh-agent`:
+Exit from your ec2 user or ubuntu user(instance) to your local user i.e local directory that contains the `pem key file`
+```
+eval `ssh-agent -s`
+```   
+```   
+ssh-add <path-to-private-key>(proj7_key.pem)
+```
+Confirm the key has been added with the command below, you should see the name of your key
+```    
+ssh-add -l
+```
+![Alt text](images/11.14.png) 
+ 
+Then `ssh` into the ansible-jenkins instance with the public ip address directly from the local directory without using the normal amazon connection
+``` 
+ssh -A ubuntu@<public ip address>
+```
+![Alt text](images/11.13.png)
+    
+Persist the key on the server 
+```       
+ssh-add -l
+```
+ssh into other instances from the ansible instance with there `private keys`
+```  
+ssh @ubuntu/ec2-user@<Private ip address>
+```
+   
+![Alt text](images/11.15.png) 
 
-11. Update your inventory/dev.yml file with this snippet of code:
+Update your inventory/dev.yml file with this snippet of code:
+
 ![Alt text](images/11.16.png)
 
-12. Update your playbooks/common.yml file with following code:
+Update your playbooks/common.yml file with following code:
+
 ![Alt text](images/11.17.png)
 
-13. use git commands to add, commit and push your branch to GitHub.
-    - git status
-    - git add <selected files>
-    - git commit -m "commit message"
+Use git commands to add, commit and push your branch to GitHub.
+```
+git status
+git add <selected files>
+git commit -m "commit message"
+```
 ![Alt text](images/11.18.png)
 
-14. Create a Pull request (PR)
+Create a Pull request (PR)
+
 ![Alt text](images/11.19.png)
 
-15. Head back on your terminal, checkout from the feature branch into the master, and pull down the latest changes.
-    - git checkout main
-    - git status 
-    - git pull .. this will update the master branch with what we have in pr-11 branch
+Head back on your terminal, checkout from the feature branch into the master, and pull down the latest changes.
+```
+git checkout main
+git status 
+git pull  #this will update the master branch with what we have in pr-11 branch
+```
 ![Alt text](images/11.21.png)
 
-16. Once your code changes appear in master branch – Jenkins will do its job and save all the files (build artifacts) to /var/lib/jenkins/jobs/ansible/builds/<build_number>/archive/ directory on Jenkins-Ansible server.
+Once your code changes appear in master branch – Jenkins will do its job and save all the files (build artifacts) to /var/lib/jenkins/jobs/ansible/builds/<build_number>/archive/ directory on Jenkins-Ansible server.
+
 ![Alt text](images/11.20.png)
 
-#----------------------------------------------------------------------------------------------------------
-17. configure the VScode SSH to connect with the ansible-jenkins server using the public ip in the configuration file
-![Alt text](images/11.22.png)
+### Coonect to the server
+ssh to your ansible-jenkins server with ssh ubuntu@<private ip address>
+Navigate to where you have your project saved on the instance
+```
+cd /var/lib/jenkins/jobs/ansible/builds/4/archive
+```
 
-18. create a new folder 'Ubuntu' on the server as a work directory... by clicking the open folder in the vscode menu.. it brings out the name automatically
+### Run the ansible-playbook
+```
+ansible-playbook -i inventory/dev.yml playbooks/common.yml
+```   
+![Alt text](images/11.24.png)
 
-![Alt text](images/11.23.png)
-#----------------------------------------------------------------------------------------------------------
+You can go to each of the servers and check if wireshark has been installed by running which wireshark or wireshark --version
+ssh to all the servers from the ansible-jenkins server and check if wireshark has been installed
 
-17. ssh to your ansible-jenkins server with ssh ubuntu@<private ip addree>
-    - navigate to where you have your project saved on the instance
-        - cd /var/lib/jenkins/jobs/ansible/builds/4/archive
+ssh ubuntu/ec2-user@<private ip address>
 
-18. run the ansible-playbook
-    - ansible-playbook -i inventory/dev.yml playbooks/common.yml
-    ![Alt text](images/11.24.png)
+![Alt text](images/11.25.png)
 
-19. You can go to each of the servers and check if wireshark has been installed by running which wireshark or wireshark --version
-    - ssh to all the servers from the ansible-jenkins server and check if wireshark has been installed
-        - ssh ubuntu/ec2-user@<private ip address>
-    ![Alt text](images/11.25.png)
+> [!Note] 
+> Ansible is Idempotent. Idempotency means that if an ansible playbook is run severally, it only makes the change to the server once unless there is a change in the playbook.
+
+Now the updated architecture looks like this
+
+![alt text](images/ansie.png)
