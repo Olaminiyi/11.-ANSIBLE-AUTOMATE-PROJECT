@@ -43,7 +43,9 @@ Configure Webhook in GitHub and set webhook to trigger ansible build.
 Configure a Post-build job to save all (**) files, like you did it in [Project 9](https://github.com/Olaminiyi/Project-9).
 
 ![Alt text](images/11.4.png)
+
 ![Alt text](images/11.5.png)
+
 ![Alt text](images/11.6.png)
 
 Test your setup by making some change in `README.MD` file in master branch and make sure that builds starts automatically and Jenkins saves the files (build artifacts) in following folder
@@ -75,6 +77,7 @@ Checkout the newly created feature branch to your local machine and start buildi
 - Within the inventory folder, create an inventory file (.yml) for each environment (Development, Staging Testing and Production) dev, staging, uat, and prod respectively.
 
 ![Alt text](images/11.11.png)
+
 ![Alt text](images/11.12.png)
 
 > [!NOTE]
