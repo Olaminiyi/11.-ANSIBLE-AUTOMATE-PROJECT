@@ -87,7 +87,7 @@ Exit from your ec2 user or ubuntu user(instance) to your local user i.e local di
 eval `ssh-agent -s`
 ```   
 ```   
-ssh-add <path-to-private-key>(proj7_key.pem)
+ssh-add <path-to-private-key>/key.pem
 ```
 Confirm the key has been added with the command below, you should see the name of your key
 ```    
