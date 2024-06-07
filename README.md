@@ -113,7 +113,10 @@ ssh @ubuntu/ec2-user@<Private ip address>
    
 ![Alt text](images/11.15.png) 
 
-Update your inventory/dev.yml file with this snippet of code:
+**Update your inventory/dev.yml file with this snippet of code:**
+
+This contains our `Hosts` which are the `NFS`, `Webserver`, `database`(db) and `Load balancer`(lb) with their private-ip-addresses and their type of users (i.e ec2-user, the load balancer if ot type Ubuntu).
+
 
 ![Alt text](images/11.16.png)
 
