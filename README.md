@@ -6,7 +6,7 @@ We will automate the routine tasks with Ansible Configuration Management using d
 
 ### ANSIBLE CLIENT AS A JUMP SERVER (BASTION HOST)
 
-A **Jump Server(Bastion Host)** is an intermediary server through which access to internal network can be provided. In the current architecture we have been working on, the webservers are inside a secured network which cannot be reached directly from the Internet. To access the webservers using SSH, we need to go through a jump server which provides a better security and reduced attack.
+A **Jump Server(Bastion Host)** A bastion host is a special computer that plays the role of a gatekeeper between a device and your private network. Due to potential blocking of internet traffic by the internal network and hosted services, SSH may be the only means to access these services. In the current architecture we have been working on, the webservers are inside a secured network which cannot be reached directly from the Internet. To access the webservers using SSH, we need to go through a jump server which provides a better security and reduced attack. You can read more on a **Bastion Host**[here](https://www.goodaccess.com/blog/what-is-a-bastion-host).
 
 In the diagram below, the `Virtual Private Network (VPC)` is divided into two subnets – Public subnet has public IP addresses and Private subnet is only reachable by private IP addresses
 
