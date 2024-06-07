@@ -96,6 +96,7 @@ ssh-add -l
 ![Alt text](images/11.14.png) 
  
 Then `ssh` into the ansible-jenkins instance with the public ip address directly from the local directory without using the normal amazon connection
+
 ``` 
 ssh -A ubuntu@<public ip address>
 ```
